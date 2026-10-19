@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}EdTech — Студенты{% endblock %}
+
+{% block content %}
+<h1>Студенты</h1>
+
+<form class="inline-form glass" onsubmit="createStudent(event)">
+  <input name="name" placeholder="Имя" required />
+  <input name="age" type="number" min="0" placeholder="Возраст" required />
+  <button type="submit">Добавить</button>
+</form>
+
+<table class="glass">
+  <tr><th>ID</th><th>Имя</th><th>Возраст</th><th>Курсы</th><th></th></tr>
+  {% for s in students %}
+  <tr>
+    <td>{{ s.id }}</td>
+    <td>{{ s.name }}</td>
+    <td>{{ s.age }}</td>
+    <td>
+      {% for c in s.courses %}<span class="tag">{{ c.name }} ({{ c.price }} ₽)</span>{% endfor %}
+    </td>
+    <td>
+      {% for course in courses if course.id not in enrolled_map[s.id] %}
+        <button onclick="enroll({{ s.id }}, {{ course.id }})">Подписаться</button>
+      {% endfor %}
+      {% for c in s.courses %}
+        <button onclick="unenroll({{ s.id }}, {{ c.id }})">Снять</button>
+      {% endfor %}
+    </td>
+  </tr>
+  {% else %}
+  <tr><td colspan="5">Студентов пока нет</td></tr>
+  {% endfor %}
+</table>
+
+<script>
+function createStudent(event) {
+  event.preventDefault();
+  const form = event.target;
+  fetch("/students/", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ name: form.name.value, age: Number(form.age.value) })
+  }).then(r => r.ok ? location.reload() : alert("Ошибка создания студента"));
+}
+
+function enroll(studentId, courseId) {
+  fetch(`/management/?studentId=${studentId}&courseId=${courseId}`, { method: "POST" })
+    .then(r => r.ok ? location.reload() : alert("Не удалось подписать студента"));
+}
+
+function unenroll(studentId, courseId) {
+  fetch(`/management?studentId=${studentId}&courseId=${courseId}`, { method: "DELETE" })
+    .then(r => r.ok ? location.reload() : alert("Не удалось снять студента с курса"));
+}
+</script>
+{% endblock %}

@@ -1,0 +1,14 @@
+# Виртуальное окружение
+.venv/
+
+# Секреты и локальное состояние
+.env
+*.db
+*.sqlite3
+
+# Артефакты инструментов
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/

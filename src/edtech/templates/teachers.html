@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}EdTech — Преподаватели{% endblock %}
+
+{% block content %}
+<h1>Преподаватели</h1>
+
+<form class="inline-form glass" onsubmit="createTeacher(event)">
+  <input name="name" placeholder="Имя" required />
+  <input name="age" type="number" min="0" placeholder="Возраст" required />
+  <button type="submit">Добавить</button>
+</form>
+
+<table class="glass">
+  <tr><th>ID</th><th>Имя</th><th>Возраст</th><th>Курсы</th></tr>
+  {% for t in teachers %}
+  <tr>
+    <td>{{ t.id }}</td>
+    <td>{{ t.name }}</td>
+    <td>{{ t.age }}</td>
+    <td>{% for c in t.courses %}<span class="tag">{{ c.name }}</span>{% endfor %}</td>
+  </tr>
+  {% else %}
+  <tr><td colspan="4">Преподавателей пока нет</td></tr>
+  {% endfor %}
+</table>
+
+<script>
+function createTeacher(event) {
+  event.preventDefault();
+  const form = event.target;
+  fetch("/teachers/", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ name: form.name.value, age: Number(form.age.value) })
+  }).then(r => r.ok ? location.reload() : alert("Ошибка создания преподавателя"));
+}
+</script>
+{% endblock %}

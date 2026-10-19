@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}EdTech — Дашборд{% endblock %}
+
+{% block content %}
+<h1>Дашборд</h1>
+
+<div class="cards">
+  <div class="card glass"><div class="value">{{ students|length }}</div><div class="label">Студентов</div></div>
+  <div class="card glass"><div class="value">{{ courses|length }}</div><div class="label">Курсов</div></div>
+  <div class="card glass"><div class="value">{{ teachers|length }}</div><div class="label">Преподавателей</div></div>
+  <div class="card glass"><div class="value">{{ enrollments }}</div><div class="label">Подписок</div></div>
+  <div class="card glass"><div class="value">{{ '%.0f' % revenue }} ₽</div><div class="label">Выручка</div></div>
+</div>
+
+<div class="charts">
+  <div class="chart-box glass">
+    <h2>Подписки по курсам</h2>
+    <canvas id="courseChart"></canvas>
+  </div>
+  <div class="chart-box glass">
+    <h2>Курсы по преподавателям</h2>
+    <canvas id="teacherChart"></canvas>
+  </div>
+</div>
+
+<h1 style="margin-top:2rem">Студенты и их курсы</h1>
+<table class="glass">
+  <tr><th>ID</th><th>Имя</th><th>Возраст</th><th>Курсы</th></tr>
+  {% for s in students %}
+  <tr>
+    <td>{{ s.id }}</td>
+    <td>{{ s.name }}</td>
+    <td>{{ s.age }}</td>
+    <td>{% for c in s.courses %}<span class="tag">{{ c.name }}</span>{% endfor %}</td>
+  </tr>
+  {% else %}
+  <tr><td colspan="4">Студентов пока нет</td></tr>
+  {% endfor %}
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+const courseData = {{ course_load | tojson }};
+const teacherData = {{ teacher_load | tojson }};
+
+function makeBar(canvasId, rows, label) {
+  new Chart(document.getElementById(canvasId), {
+    type: "bar",
+    data: {
+      labels: rows.map(r => r.name),
+      datasets: [{ label: label, data: rows.map(r => r.count), backgroundColor: "#818cf8aa" }]
+    },
+    options: { scales: { y: { beginAtZero: true } } }
+  });
+}
+
+makeBar("courseChart", courseData.map(c => ({ name: c.name, count: c.students })), "Студентов");
+makeBar("teacherChart", teacherData.map(t => ({ name: t.name, count: t.courses })), "Курсов");
+</script>
+{% endblock %}

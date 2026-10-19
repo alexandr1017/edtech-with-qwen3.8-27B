@@ -1,0 +1,104 @@
+:root {
+  --bg-1: #0f172a;
+  --bg-2: #1e1b4b;
+  --accent: #818cf8;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: var(--text);
+  background: radial-gradient(1200px 600px at 20% -10%, #312e81 0%, transparent 60%),
+    radial-gradient(900px 500px at 90% 110%, #0e7490 0%, transparent 55%),
+    linear-gradient(160deg, var(--bg-1), var(--bg-2));
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.9rem 1.4rem;
+  margin: 1rem auto;
+  max-width: 1280px;
+}
+
+.brand { font-weight: 700; color: var(--accent); margin-right: 1rem; }
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.35rem 0.9rem;
+  border-radius: 10px;
+}
+
+.nav a:hover { background: rgba(255, 255, 255, 0.08); color: var(--text); }
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 1rem 3rem; }
+
+h1 { font-size: 1.6rem; margin-bottom: 1.2rem; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.card { padding: 1rem 1.2rem; }
+.card .value { font-size: 1.9rem; font-weight: 700; color: var(--accent); }
+.card .label { color: var(--muted); font-size: 0.85rem; margin-top: 0.3rem; }
+
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1rem; }
+.chart-box { padding: 1rem; }
+.chart-box h2 { font-size: 1rem; margin-top: 0; color: var(--muted); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+th, td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+th { color: var(--muted); font-weight: 600; }
+
+.tag {
+  display: inline-block;
+  background: rgba(129, 140, 248, 0.15);
+  border-radius: 8px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.8rem;
+  margin-right: 0.3rem;
+}
+
+button {
+  background: var(--accent);
+  color: #0f172a;
+  border: none;
+  border-radius: 10px;
+  padding: 0.45rem 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover { filter: brightness(1.1); }
+
+form.inline-form { display: flex; gap: 0.6rem; align-items: center; margin-bottom: 1.2rem; }
+input, select {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: var(--text);
+  padding: 0.45rem 0.7rem;
+}

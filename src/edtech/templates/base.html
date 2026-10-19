@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}EdTech{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <nav class="nav glass">
+    <span class="brand">EdTech</span>
+    <a href="/">Дашборд</a>
+    <a href="/students">Студенты</a>
+    <a href="/courses">Курсы</a>
+    <a href="/teachers">Преподаватели</a>
+  </nav>
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
