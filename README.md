@@ -1,7 +1,7 @@
 # EdTech REST API
 
-REST-сервис курса edTech (спецификация edTechREST) + веб-дашборд: студенты, курсы и
-преподаватели; подписки студентов на курсы и назначение преподавателей.
+Agentic-first with LLM Qwen3.8-27B && Cline agent REST-сервис:
+edTech (спецификация edTechREST) + веб-дашборд: студенты, курсы и преподаватели; подписки студентов на курсы и назначение преподавателей.
 
 Стек: **FastAPI**, **SQLAlchemy 2 async**, **SQLite** (`aiosqlite`), **Jinja2**.
 
